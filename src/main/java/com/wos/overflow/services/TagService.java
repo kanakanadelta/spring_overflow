@@ -3,6 +3,7 @@ package com.wos.overflow.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.wos.overflow.models.Tag;
 import com.wos.overflow.repositories.TagRepo;
 
 @Service
@@ -22,7 +23,9 @@ public class TagService {
 	
 	
 	// CREATE A TAG //
-	/* Service Method */
+	public Tag createTag(Tag tag) {
+		return tR.save(tag);
+	}
 	
 	// END SERVICE
 }

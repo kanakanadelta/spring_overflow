@@ -3,15 +3,16 @@ package com.wos.overflow.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.wos.overflow.models.TagQuestion;
 import com.wos.overflow.repositories.TagQuestionRepo;
 
 @Service
 public class TagQuestionService {
 	@Autowired
-	private TagQuestionRepo tqR;
+	private TagQuestionRepo tQR;
 	
-	public TagQuestionService(TagQuestionRepo tqR) {
-		this.tqR = tqR;
+	public TagQuestionService(TagQuestionRepo tQR) {
+		this.tQR = tQR;
 	}
 	
 	// // // // //
@@ -22,7 +23,9 @@ public class TagQuestionService {
 	
 	
 	// CREATE A TagQuestion Relationship //
-	/* Service Method */
+	public TagQuestion createTQ(TagQuestion tagQuestion) {
+		return tQR.save(tagQuestion);
+	}
 	
 	// END SERVICE
 }
