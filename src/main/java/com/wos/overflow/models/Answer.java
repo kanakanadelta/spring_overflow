@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="answers")
@@ -23,6 +24,7 @@ public class Answer {
 	private Long id;
 	
 	// Answer Text String
+	@Size(min=5, max=255)
 	private String answerText;
 	
 	//Generation for dates
@@ -54,7 +56,8 @@ public class Answer {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
+	
+	
 	public String getAnswerText() {
 		return answerText;
 	}

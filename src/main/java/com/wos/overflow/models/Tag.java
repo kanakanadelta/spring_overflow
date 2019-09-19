@@ -15,6 +15,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="tags")
@@ -25,6 +26,7 @@ public class Tag {
 	private Long id;
 	
 	// Subject String (tag name)
+	@Size(min=2, max=150)
 	private String subject;
 	
 	//Generation for dates

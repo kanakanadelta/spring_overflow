@@ -16,6 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="questions")
@@ -26,6 +27,7 @@ public class Question {
 	private Long id;
 	
 	//Question Text String
+	@Size(min=5, max=255)
 	private String questionText;
 	
 	//Generation for dates
