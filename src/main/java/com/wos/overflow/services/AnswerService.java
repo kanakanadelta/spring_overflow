@@ -17,9 +17,20 @@ public class AnswerService {
 		this.aR = aR;
 	}
 	
-	// FIND ALL ANSWERS
+	// // // // // //
+	// SERVICES 
+	
+	// FIND ALL ANSWERS //
 	public List<Answer> allAnswers(){
 		return aR.findAll();
 	}
 	
+	// FIND ANSWERS FOR A SPECIFIC QUESTION //
+	/* service method */
+	
+	// CREATE ANSWER //
+	/* service method */
+	
+	
+	// END SERVICE
 }

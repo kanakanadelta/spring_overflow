@@ -26,7 +26,7 @@ public class Tag {
 	private Long id;
 	
 	// Subject String (tag name)
-	@Size(min=2, max=150)
+	@Size(min=2, max=20)
 	private String subject;
 	
 	//Generation for dates
