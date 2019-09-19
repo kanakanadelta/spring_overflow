@@ -3,8 +3,6 @@ package com.wos.overflow.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,9 +11,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.wos.overflow.models.Question;
 import com.wos.overflow.models.Tag;
+import com.wos.overflow.models.TagQuestion;
 import com.wos.overflow.services.AnswerService;
 import com.wos.overflow.services.QuestionService;
 import com.wos.overflow.services.TagQuestionService;
@@ -62,10 +62,7 @@ public class MainController {
 	
 	// NEW - Page to make a new question
 	@GetMapping("/questions/new")
-	public String newQuestion(
-			@ModelAttribute("question") Question question,
-			@ModelAttribute("tags") List<Tag> tags
-			) {
+	public String newQuestion(@ModelAttribute("question")Question question) {
 		// serve page to make new question
 		return "newQuestion.jsp";
 	}
@@ -74,32 +71,49 @@ public class MainController {
 	// CREATE - new question to add to db //
 	@PostMapping("/questions")
 	public String createQuestion(
-			@Valid 
-			@ModelAttribute("question")Question question, 
-			@ModelAttribute("tagString") String tagStr,
+			@ModelAttribute("question")Question question,
+			@RequestParam("tagStr")String tagStr,
 			BindingResult result
 			) {
+		
 		if(result.hasErrors()) {
 			return "newQuestion.jsp";
 		} else {
 			// Create new question
 			qS.createOrUpdateQuestion(question);
 			
+			
 			//////////////////////
 			// Seperate the tags
 			
 			ArrayList<String> tagList = tS.tagSplit(tagStr);
 			
-		    // print test:
+		    // Tag and Relationship creation:
 		    for(int i = 0; i < tagList.size() ; i++) {
 		        System.out.println(tagList.get(i) + " - size: " + tagList.get(i).length());
+		        
+		        // make new tag for each tagStr in list
+		        Tag newTag = new Tag();
+		        newTag.setSubject(tagList.get(i));
+		        tS.createTag(newTag);
+		        
+		        // make new relationship for each tag to the question
+		        TagQuestion relationship = new TagQuestion();
+		        relationship.setTag(newTag);
+		        relationship.setQuestion(question);
+		        tQS.createTQ(relationship);
+		        
+		        
 		     }
+		    System.out.println(question.getQuestionText());
 			
 			 // END TAG OPERATION //
 		    ///////////////////////
 			
 			return "redirect:/questions";
 		}
+		
+		// end create question
 	}
 	
 	

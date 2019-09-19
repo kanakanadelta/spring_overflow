@@ -17,7 +17,12 @@
 <body>
 	<h1>What is your question?</h1>
 	<div>
-		<!-- INSERT FORM FOR QUESTIOn, TAGS, AND SUBMIT INPUTS -->
+		<form:form action="/questions" method="POST" modelAttribute="question">
+			<form:textarea path="questionText" name="questionText" id="questionText" cols="60" rows="10"></form:textarea>
+			<br />
+			<label for="tagStr">Tags:</label>
+			<input name="tagStr" type="text" />
+		</form:form>
 	</div>
 </body>
 </html>
