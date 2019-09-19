@@ -6,17 +6,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-	* {
-		font-family: Comic Sans MS;
-	}
-</style>
+<link rel="stylesheet" href="style.css" />
 <meta charset="UTF-8">
 <title>Questions Dashboard</title>
 </head>
 <body>
 	<h1>Questions Dashboard</h1>
-	<div>
+	<div id="questions">
 		<table>
 			<thead>
 				<tr>
@@ -29,5 +25,10 @@
 			</tbody>
 		</table>
 	</div>
+	<div id="new_question">
+		<a href="/questions/new">New Question</a>
+	</div>
+	
+	<!-- END BODY -->
 </body>
 </html>

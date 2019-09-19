@@ -6,6 +6,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+	* {
+		font-family: Comic Sans MS;
+	}
+</style>
 <meta charset="UTF-8">
 <title>New Question</title>
 </head>

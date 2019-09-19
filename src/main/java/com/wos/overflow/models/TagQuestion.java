@@ -36,7 +36,7 @@ public class TagQuestion {
     
     // Establish relationship with a tag
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "question_id")
+    @JoinColumn(name = "tag_id")
     private Tag tag;
     
     
