@@ -27,7 +27,7 @@ public class QuestionService {
 	}
 	
 	// SHOW A SPECIFIC QUESTION //
-	public Question geQuestion(Long id) {
+	public Question getQuestion(Long id) {
 		Optional<Question> optQuestion = qR.findById(id);
 		if(optQuestion.isPresent()) {
 			return optQuestion.get();

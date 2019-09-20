@@ -3,6 +3,8 @@ package com.wos.overflow.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -74,9 +76,19 @@ public class MainController {
 	// // // // // // // // // // //
 	// SHOW - page of the question
 	@GetMapping("/questions/{id}")
-	public String show(@PathVariable(value="id")Long id, Model model) {
-		Question question = qS.geQuestion(id);
+	public String show(
+			@PathVariable(value="id")Long id, 
+			@ModelAttribute(value="answer")Answer answer,
+			Model model) {
+		Question question = qS.getQuestion(id);
 		model.addAttribute("qObj", question);
+		
+		List<Answer> answers = question.getAnswers();
+		model.addAttribute("answers", answers);
+		
+		for(int i = 0; i < answers.size(); i++) {
+			System.out.println(answers.get(i).getAnswerText());
+		}
 		return "showQuestion.jsp";
 	}
 	
@@ -84,7 +96,7 @@ public class MainController {
 	// CREATE - new question to add to db //
 	@PostMapping("/questions")
 	public String createQuestion(
-			@ModelAttribute("question")Question question,
+			@Valid @ModelAttribute("question")Question question,
 			@RequestParam("tagStr")String tagStr,
 			BindingResult result
 			) {
@@ -133,11 +145,18 @@ public class MainController {
 	@PostMapping("/questions/{id}/answer")
 	public String createAnswer(
 			@PathVariable(value="id")Long id, 
+			@Valid
 			@ModelAttribute("answer")Answer answer, 
 			BindingResult result
 			) {
-		
-		return "redirect:/questions/{id}";
+		if(result.hasErrors()) {
+			return "showQuestion.jsp";
+		} else {
+			answer.setId(null);
+			answer.setQuestion(qS.getQuestion(id));
+			aS.createAnswer(answer);
+			return "redirect:/questions/{id}";			
+		}
 	}
 	
 	// END CONTROLLER

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.wos.overflow.models.Answer;
+import com.wos.overflow.models.Question;
 import com.wos.overflow.repositories.AnswerRepo;
 
 @Service
@@ -29,7 +30,9 @@ public class AnswerService {
 	/* service method */
 	
 	// CREATE ANSWER //
-	/* service method */
+	public Answer createAnswer(Answer answer) {
+		return aR.save(answer);
+	}
 	
 	
 	// END SERVICE
