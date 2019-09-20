@@ -9,10 +9,12 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.wos.overflow.models.Answer;
 import com.wos.overflow.models.Question;
 import com.wos.overflow.models.Tag;
 import com.wos.overflow.models.TagQuestion;
@@ -57,14 +59,25 @@ public class MainController {
 	public String index(Model model) {
 		List<Question> questions = qS.allQuestions();
 		model.addAttribute("questions", questions);
+		
 		return "index.jsp";
 	}
 	
+	// // // // // // // // // // //
 	// NEW - Page to make a new question
 	@GetMapping("/questions/new")
 	public String newQuestion(@ModelAttribute("question")Question question) {
 		// serve page to make new question
 		return "newQuestion.jsp";
+	}
+	
+	// // // // // // // // // // //
+	// SHOW - page of the question
+	@GetMapping("/questions/{id}")
+	public String show(@PathVariable(value="id")Long id, Model model) {
+		Question question = qS.geQuestion(id);
+		model.addAttribute("qObj", question);
+		return "showQuestion.jsp";
 	}
 	
 	// // // // // // // // // // // // // //
@@ -112,10 +125,20 @@ public class MainController {
 			
 			return "redirect:/questions";
 		}
-		
 		// end create question
 	}
 	
+	// // // // // // // // // // // // // //
+	// CREATE - new answer for a question //
+	@PostMapping("/questions/{id}/answer")
+	public String createAnswer(
+			@PathVariable(value="id")Long id, 
+			@ModelAttribute("answer")Answer answer, 
+			BindingResult result
+			) {
+		
+		return "redirect:/questions/{id}";
+	}
 	
 	// END CONTROLLER
 }

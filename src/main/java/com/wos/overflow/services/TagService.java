@@ -36,6 +36,9 @@ public class TagService {
 
 	    String tempStr = "";
 	    for(int i = 0; i < tagStr.length(); i++) {
+	      if(tagList.size() == 3) {
+	    	  break;
+	      }
 	      char currChar = tagStr.charAt(i);
 	      if(currChar != ',') {
 	        // as long as the current char of tags isn't a comma, keep building str

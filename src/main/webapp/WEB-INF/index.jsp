@@ -21,7 +21,20 @@
 				</tr>
 			</thead>
 			<tbody>
-				<!-- c:out and map info from questions and their tags -->
+				<c:forEach items="${questions}" var="qObj">
+					<tr>
+						<td>
+							<a href="/questions/${qObj.id}">
+								<c:out value="${qObj.questionText}" />
+							</a>
+						</td>
+						<td>
+							<c:forEach items="${qObj.tags}" var="tag">
+								<c:out value="${tag.subject}" />
+							</c:forEach>
+						</td>
+					</tr>
+				</c:forEach>
 			</tbody>
 		</table>
 	</div>
